@@ -1,0 +1,22 @@
+########listarEndereco########
+GET http://localhost:3000/endereco HTTP/1.1
+
+
+########novoEndereco########
+
+POST http://localhost:3000/endereco HTTP/1.1
+content-type: application/json
+
+{
+  "cep": "86037580",
+  "estado": "PR",
+  "cidade": "Londrina",
+  "bairro": "Conjunto Habitacional Alexandre Urbanas",
+  "logradouro": "rua egydio ",
+  "numero" : "98",
+  "complemento": "vsdvsdv"
+
+}
+
+########deletarEnderecoID########
+DELETE http://localhost:3000/endereco/62706f7a7cafcc93feb1ad63 HTTP/1.1

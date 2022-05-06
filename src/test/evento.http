@@ -1,0 +1,52 @@
+########listarEvento########
+GET http://localhost:3000/evento HTTP/1.1
+
+
+########novoEvento########
+
+POST http://localhost:3000/evento HTTP/1.1
+content-type: application/json
+
+{
+    "nome":"nome evento 2",
+    "data" :"10-10-2022",
+    "descriacao" :"descricao",
+    "palavraChave" : "teste",
+    "categoria" : {"_id": "62707c143c4770382132898c"},
+    "statusEvento" : true, 
+    "local" : {"_id": "62706f7a7cafcc93feb1ad63"},
+    "usuario" : {"_id": "627036a4762124ee351c6b08"}
+
+}
+
+########listarEventoID########
+
+GET http://localhost:3000/evento/627061f6794cc56e8b02fe54 HTTP/1.1
+
+
+########ListarEventoAtivo########
+
+GET http://localhost:3000/eventoAtivo HTTP/1.1
+
+########listarEventoInativo########
+GET http://localhost:3000/eventoInativo HTTP/1.1
+
+########excluirEventoID########
+
+DELETE http://localhost:3000/evento/627061f6794cc56e8b02fe54 HTTP/1.1
+
+########atualizarEventoID########
+PUT http://localhost:3000/evento/627061f6794cc56e8b02fe54 HTTP/1.1
+content-type: application/json
+
+{
+    "nome":"nome evento 3",
+    "data" :"10-10-2022",
+    "descriacao" :"descricao",
+    "palavraChave" : "teste",
+    "categoria" : {"_id": "62707c143c4770382132898c"},
+    "statusEvento" : false, 
+    "local" : {"_id": "62706f7a7cafcc93feb1ad63"},
+    "usuario" : {"_id": "627036a4762124ee351c6b08"}
+
+}
