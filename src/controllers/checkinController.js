@@ -23,6 +23,18 @@ class checkinController {
         : res.status(200).json(checkin);
     });
   };
+
+  static contadorCheckinEventoID = (req, res) => {
+    checkin.find({ evento: req.params.id }, (err, checkin) => {
+      err
+        ? res
+            .status(400)
+            .send({ message: `Não foi possível contar Checkins! ${err}` })
+        : res.status(200).json({ contador: `${checkin}` });
+    });
+  };
 }
 
 export default checkinController;
+
+
