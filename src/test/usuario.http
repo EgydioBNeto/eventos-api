@@ -1,6 +1,15 @@
 ########listarUsuario########
-GET http://localhost:3000/usuario HTTP/1.1
+GET http://localhost:3000/ HTTP/1.1
 
+####Autenticação########
+POST http://localhost:3000/auth HTTP/1.1
+content-type: application/json
+Authorization:
+
+{
+    "email": "aa@a.com",
+    "senha": "12345678910" 
+}
 
 ########novoUsuario########
 

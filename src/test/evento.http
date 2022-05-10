@@ -1,6 +1,6 @@
 ########listarEvento########
 GET http://localhost:3000/evento HTTP/1.1
-
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNzlkMjljNTYwYzVjNmM4NzdmMzllYyIsImlhdCI6MTY1MjE1NTk1MSwiZXhwIjoxNjUyMjQyMzUxfQ.b9TTOfU1WMPhnXjCgxPhTvdN6HLPq7zQqe9iSpGsNTw
 
 ########novoEvento########
 

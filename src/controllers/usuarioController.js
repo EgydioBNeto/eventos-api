@@ -1,5 +1,7 @@
 import usuario from "../models/Usuario.js";
-
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+const authConfig = { secret: "e662505747e4922b7694aa878bcbcbc0" };
 class usuarioController {
   static novoUsuario = (req, res) => {
     let usuarios = new usuario(req.body);
@@ -12,6 +14,21 @@ class usuarioController {
             message: `Usuário ${usuario.nome} cadastrado com sucesso!`,
           });
     });
+  };
+
+  static autenticarUsuario = async (req, res) => {
+    const { email, senha } = req.body;
+    const user = await usuario.findOne({ email }).select("+senha");
+
+    if (!user)
+      return res.status(400).send({ message: "Usuário não encontrado!" });
+    if (!(await bcrypt.compare(senha, user.senha)))
+      return res.status(400).send({ message: "Senha incorreta!" });
+    user.senha = undefined;
+    const token = jwt.sign({ id: user.id }, authConfig.secret, {
+      expiresIn: 86400,
+    });
+    res.send({ user, token });
   };
 
   static listarUsuario = (req, res) => {
@@ -63,4 +80,3 @@ class usuarioController {
 }
 
 export default usuarioController;
-
