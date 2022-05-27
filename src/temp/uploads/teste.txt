@@ -1,0 +1,1 @@
+verificando se a vercel exclui as pastas
