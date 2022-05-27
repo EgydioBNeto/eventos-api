@@ -1,7 +1,9 @@
 import usuario from "../models/Usuario.js";
 import bcrypt from "bcrypt";
+import crypto from "crypto";
 import jwt from "jsonwebtoken";
 const authConfig = { secret: "e662505747e4922b7694aa878bcbcbc0" };
+import mail from "../models/Mailer.js";
 class usuarioController {
   static novoUsuario = (req, res) => {
     let usuarios = new usuario(req.body);
@@ -29,6 +31,66 @@ class usuarioController {
       expiresIn: 86400,
     });
     res.send({ user, token });
+  };
+
+  static esqueciSenha = async (req, res) => {
+    const { email } = req.body;
+    try {
+      const user = await usuario.findOne({ email });
+      if (!user)
+        return res.status(400).send({ message: "Usuário não encontrado!" });
+
+      const token = crypto.randomBytes(20).toString("hex");
+      const now = new Date();
+      now.setHours(now.getHours() + 1);
+      await usuario.findByIdAndUpdate(user.id, {
+        $set: {
+          resetSenhaToken: token,
+          resetSenhaExpires: now,
+        },
+      });
+      mail.sendMail(
+        {
+          to: email,
+          from: "egydiobolonhezi@gmail.com",
+          template: "forgot_password",
+          context: { token },
+        },
+        (err) => {
+          if (err) {
+            console.log(err);
+            return res.status(400).send({ message: "Erro ao enviar email!" });
+          } else {
+            return res
+              .status(200)
+              .send({ message: "Email enviado com sucesso!" });
+          }
+        }
+      );
+    } catch (err) {
+      res.status(400).send({ message: "Não foi possível enviar email!" });
+    }
+  };
+
+  static resetSenha = async (req, res) => {
+    const { email, token, senha } = req.body;
+    try {
+      const user = await usuario
+        .findOne({ email })
+        .select("+resetSenhaToken resetSenhaExpires");
+      if (!user)
+        return res.status(400).send({ message: "Usuário não encontrado!" });
+      if (token !== user.resetSenhaToken)
+        return res.status(400).send({ message: "Token inválido!" });
+      const now = new Date();
+      if (now > user.resetSenhaExpires)
+        return res.status(400).send({ message: "Token expirado!" });
+      user.senha = senha;
+      await user.save();
+      res.send({ message: "Senha alterada com sucesso!" });
+    } catch (err) {
+      res.status(400).send({ message: "Não foi possível alterar senha!" });
+    }
   };
 
   static listarUsuario = (req, res) => {

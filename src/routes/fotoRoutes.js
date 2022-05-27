@@ -6,7 +6,9 @@ import foto from "../models/Foto.js";
 import authMiddlewares from "../middlewares/auth.js";
 
 const router = express.Router();
-router.use(authMiddlewares);
+
+//router.use(authMiddlewares);
+
 router
 
   .get("/foto", fotoController.listarFoto)

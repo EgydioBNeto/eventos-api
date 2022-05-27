@@ -4,7 +4,7 @@ import authMiddlewares from "../middlewares/auth.js";
 
 const router = express.Router();
 
-router.use(authMiddlewares);
+//router.use(authMiddlewares);
 
 router
 

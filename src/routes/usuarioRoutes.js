@@ -12,7 +12,9 @@ router
   .post("/usuario", usuarioController.novoUsuario)
   .get("/usuario/:id", usuarioController.listarUsuarioID)
   .put("/usuario/:id", usuarioController.atualizarUsuarioID)
-  .delete("/usuario/:id", usuarioController.excluirUsuarioID);
+  .delete("/usuario/:id", usuarioController.excluirUsuarioID)
+  .post("/esqueciSenha", usuarioController.esqueciSenha)
+  .post("/resetSenha", usuarioController.resetSenha);
 
 
 export default router;

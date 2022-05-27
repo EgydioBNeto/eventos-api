@@ -7,7 +7,10 @@ const usuarioSchema = new mongoose.Schema({
   email: { type: String, unique: true, required: true },
   senha: { type: String, select: false, minlength: 6, required: true },
   docente: { type: Boolean, default: false },
+  resetSenhaToken: { type: String, select: false },
+  resetSenhaExpires: { type: Date, select: false },
 });
+
 
 usuarioSchema.pre("save", async function (next) {
   const hash = await bcrypt.hash(this.senha, 10);
