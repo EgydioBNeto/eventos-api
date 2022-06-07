@@ -19,7 +19,7 @@ const storageTypes = {
       crypto.randomBytes(16, (err, hash) => {
         if (err) cb(err);
 
-        file.foto = `${hash.toString("hex")}-`;
+        file.foto = `${hash.toString("hex")}-${file.fieldname}`;
 
         cb(null, file.foto);
       });
@@ -34,7 +34,7 @@ const storageTypes = {
       crypto.randomBytes(16, (err, hash) => {
         if (err) cb(err);
 
-        file.foto = `${hash.toString("hex")}-`;
+        file.foto = `${hash.toString("hex")}-${file.fieldname}`;
 
         cb(null, file.foto);
       });
