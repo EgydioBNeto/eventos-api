@@ -23,7 +23,7 @@ app.use(morgan("dev"));
 app.use(
   "/files",
   express.static(path.resolve(__dirname, "src", "temp", "uploads"))
-);
+);  
 routes(app);
 
 export default app;

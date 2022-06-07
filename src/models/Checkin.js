@@ -5,7 +5,7 @@ const checkinSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "usuario",
     required: true,
-  } /**USUARIO ALUNO**/,
+  } /**USUARIO**/,
   evento: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "evento",

@@ -2,7 +2,7 @@ import express from "express";
 import fotoController from "../controllers/fotoController.js";
 import multer from "multer";
 import multerConfig from "../config/multer.js";
-import foto from "../models/Foto.js";
+import Foto from "../models/Foto.js";
 import authMiddlewares from "../middlewares/auth.js";
 
 const router = express.Router();
@@ -13,16 +13,19 @@ router
 
   .get("/foto", fotoController.listarFoto)
   .get("/foto/:id", fotoController.listarFotoID)
-  .delete("/foto/:id", fotoController.excluirFotoID);
+  .delete("/foto/:id", fotoController.excluirFotoID)
+  .post("/foto", multer(multerConfig).single("file"), async (req, res) => {
+    const { originalname: nome, banner, foto } = req.file;
 
-router.post("/foto", multer(multerConfig).single("file"), async (req, res) => {
-const post = await foto.create({
-  nome: req.body.nome,
-  evento: req.body.evento,
-  foto: req.body.path,
-  banner: req.body.banner,
-});
-  return res.json({ message: `Foto ${post.id} cadastrada com sucesso!` });
-}); 
+    const { evento } = req.body;
+
+    const fotocad = await Foto.create({
+      nome,
+      evento,
+      foto,
+      banner,
+    });
+    return res.json({ message: `Foto ${fotocad.id} cadastrada com sucesso!` });
+  });
 
 export default router;

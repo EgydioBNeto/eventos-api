@@ -5,18 +5,14 @@ const eventoSchema = new mongoose.Schema({
   data: { type: Date, required: true },
   descriacao: { type: String, required: true },
   palavraChave: { type: String, required: true },
-  categoria: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "categoria",
-    required: true,
-  } /**CATEGORIA**/,
+  categoria: { type: String, required: true },
   statusEvento: { type: Boolean, default: true },
-  local: { type: mongoose.Schema.Types.ObjectId, ref: "endereco" } /**LOCAL**/,
+  local: { type: String, required: true },
   usuario: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "usuario",
     required: true,
-  } /**USUARIO DOCENTE**/,
+  } /**USUARIO e DOCENTE**/,
 });
 
 const evento = mongoose.model("eventos", eventoSchema);

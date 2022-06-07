@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
-const appUrl = process.env.APP_URL;
+import multer from "multer";
+import path from "path";
+const appUrl = path.resolve("src", "temp", "uploads");
 
 const fotoSchema = new mongoose.Schema({
   nome: { type: String, required: true },
@@ -8,13 +10,14 @@ const fotoSchema = new mongoose.Schema({
     ref: "evento",
     required: true,
   } /**EVENTO**/,
-  foto: { type: String } /**url**/,
+  foto: { type: String },
+  url: { type: String },
   banner: { type: Boolean, default: false },
 });
 
 fotoSchema.pre("save", function () {
-  if (!this.path) {
-    this.path = `${appUrl}/${this.foto}`;
+  if (!this.url) {
+    this.url = `${appUrl}/${this.foto}`;
   }
 });
   

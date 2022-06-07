@@ -19,9 +19,9 @@ const storageTypes = {
       crypto.randomBytes(16, (err, hash) => {
         if (err) cb(err);
 
-        const fileName = `${hash.toString("hex")}-${file.originalname}`;
+        file.foto = `${hash.toString("hex")}-${file.originalname}`;
 
-        cb(null, fileName);
+        cb(null, file.foto);
       });
     },
   }),
@@ -34,9 +34,9 @@ const storageTypes = {
       crypto.randomBytes(16, (err, hash) => {
         if (err) cb(err);
 
-        const fileName = `${hash.toString("hex")}-${file.originalname}`;
+        file.foto = `${hash.toString("hex")}-${file.originalname}`;
 
-        cb(null, fileName);
+        cb(null, file.foto);
       });
     },
   }),
@@ -44,7 +44,7 @@ const storageTypes = {
 
 const multerConfig = {
   dest: path.resolve(__dirname, "src", "temp", "uploads"),
-  storage: storageTypes["s3"],
+  storage: storageTypes["local"],
   limits: {
     fileSize: 2 * 1024 * 1024,
   },
