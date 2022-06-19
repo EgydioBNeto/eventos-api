@@ -16,24 +16,28 @@ class fotoController {
   };
 **/
   static listarFoto = (req, res) => {
-    foto.find((err, foto) => {
-      err
-        ? res.status(400).send({
-            message: `Não foi possível listar Fotos! ${err}`,
-          })
-        : res.status(200).json(foto);
-    });
+    foto
+      .find((err, foto) => {
+        err
+          ? res.status(400).send({
+              message: `Não foi possível listar Fotos! ${err}`,
+            })
+          : res.status(200).json(foto);
+      })
+      .populate("evento");
   };
 
   static listarFotoID = (req, res) => {
     const id = req.params.id;
-    foto.findById(id, (err, foto) => {
-      err
-        ? res.status(400).send({
-            message: `Não foi possível listar Foto! ${err}`,
-          })
-        : res.status(200).json(foto);
-    });
+    foto
+      .findById(id, (err, foto) => {
+        err
+          ? res.status(400).send({
+              message: `Não foi possível listar Foto! ${err}`,
+            })
+          : res.status(200).json(foto);
+      })
+      .populate("evento");
   };
 
   static excluirFotoID = (req, res) => {

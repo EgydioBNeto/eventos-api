@@ -7,7 +7,7 @@ const fotoSchema = new mongoose.Schema({
   nome: { type: String, required: true },
   evento: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "evento",
+    ref: "eventos",
     required: true,
   } /**EVENTO**/,
   foto: { type: String },

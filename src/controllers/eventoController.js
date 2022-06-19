@@ -16,13 +16,15 @@ class eventoController {
   };
 
   static listarEvento = (req, res) => {
-    evento.find((err, evento) => {
-      err
-        ? res.status(400).send({
-            message: `Não foi possível listar Eventos! ${err}`,
-          })
-        : res.status(200).json(evento);
-    });
+    evento
+      .find((err, evento) => {
+        err
+          ? res.status(400).send({
+              message: `Não foi possível listar Eventos! ${err}`,
+            })
+          : res.status(200).json(evento);
+      })
+      .populate("usuario");
   };
 
   static listarEventoAtivo = (req, res) => {
@@ -32,28 +34,32 @@ class eventoController {
             message: `Não há Eventos ativos! ${err}`,
           })
         : res.status(200).json(evento);
-    });
+    }).populate("usuario");
   };
 
   static listarEventoInativo = (req, res) => {
-    evento.find({ statusEvento: false }, (err, evento) => {
-      err
-        ? res.status(400).send({
-            message: `Não há Eventos Inativos! ${err}`,
-          })
-        : res.status(200).json(evento);
-    });
+    evento
+      .find({ statusEvento: false }, (err, evento) => {
+        err
+          ? res.status(400).send({
+              message: `Não há Eventos Inativos! ${err}`,
+            })
+          : res.status(200).json(evento);
+      })
+      .populate("usuario");
   };
 
   static listarEventoID = (req, res) => {
     const id = req.params.id;
-    evento.findById(id, (err, evento) => {
-      err
-        ? res.status(400).send({
-            message: `Não foi possível listar o Evento! ${err}`,
-          })
-        : res.status(200).json(evento);
-    });
+    evento
+      .findById(id, (err, evento) => {
+        err
+          ? res.status(400).send({
+              message: `Não foi possível listar o Evento! ${err}`,
+            })
+          : res.status(200).json(evento);
+      })
+      .populate("usuario");
   };
   static atualizarEventoID = (req, res) => {
     const id = req.params.id;

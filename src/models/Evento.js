@@ -10,7 +10,7 @@ const eventoSchema = new mongoose.Schema({
   local: { type: String, required: true },
   usuario: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "usuario",
+    ref: "usuarios",
     required: true,
   } /**USUARIO e DOCENTE**/,
 });
