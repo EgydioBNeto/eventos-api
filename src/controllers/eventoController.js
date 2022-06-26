@@ -27,23 +27,62 @@ class eventoController {
       .populate("usuario");
   };
 
-  static listarEventoAtivo = (req, res) => {
-    evento.find({ statusEvento: true }, (err, evento) => {
-      err
-        ? res.status(400).send({
-            message: `Não há Eventos ativos! ${err}`,
-          })
-        : res.status(200).json(evento);
-    }).populate("usuario");
+  static listarEventoData = (req, res) => {
+    evento
+      .find({ dataEvento: req.params.data }, (err, evento) => {
+        err
+          ? res.status(400).send({ message: `Não há Eventos! ${err}` })
+          : res.status(200).json(evento);
+      })
+      .populate("usuario");
   };
 
-  static listarEventoInativo = (req, res) => {
+  static listarEventosPassados = (req, res) => {
+    let dataNormal = new Date();
+    let dataEdit =
+      dataNormal.getFullYear() +
+      "-" +
+      (dataNormal.getMonth() + 1) +
+      "-" +
+      dataNormal.getDate();
     evento
-      .find({ statusEvento: false }, (err, evento) => {
+      .find({ data: { $lt: dataEdit } }, (err, evento) => {
         err
-          ? res.status(400).send({
-              message: `Não há Eventos Inativos! ${err}`,
-            })
+          ? res.status(400).send({ message: `Não há Eventos! ${err}` })
+          : res.status(200).json(evento);
+      })
+      .populate("usuario");
+  };
+
+  static listarEventosFuturos = (req, res) => {
+    let dataNormal = new Date();
+    let dataEdit =
+      dataNormal.getFullYear() +
+      "-" +
+      (dataNormal.getMonth() + 1) +
+      "-" +
+      dataNormal.getDate();
+    evento
+      .find({ data: { $gt: dataEdit } }, (err, evento) => {
+        err
+          ? res.status(400).send({ message: `Não há Eventos! ${err}` })
+          : res.status(200).json(evento);
+      })
+      .populate("usuario");
+  };
+
+  static listarEventosHoje = (req, res) => {
+    let month = new Date().getMonth() + 1;
+    let todayMonth = month.toString();
+    if (todayMonth < 10) todayMonth = "0" + month.toString();
+    let today =
+      new Date().getFullYear() + "-" + todayMonth + "-" + new Date().getDate();
+
+    console.log(today);
+    evento
+      .find({ data: { $eq: today } }, (err, evento) => {
+        err
+          ? res.status(400).send({ message: `Não há Eventos! ${err}` })
           : res.status(200).json(evento);
       })
       .populate("usuario");

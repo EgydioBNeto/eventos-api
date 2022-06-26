@@ -11,8 +11,10 @@ router
   .get("/evento", eventoController.listarEvento)
   .post("/evento", eventoController.novoEvento)
   .get("/evento/:id", eventoController.listarEventoID)
-  .get("/eventoAtivo", eventoController.listarEventoAtivo)
-  .get("/eventoInativo", eventoController.listarEventoInativo)
+  .get("/eventoData/:data", eventoController.listarEventoData)
+  .get("/listarEventosPassados", eventoController.listarEventosPassados)
+  .get("/listarEventosFuturos", eventoController.listarEventosFuturos)
+  .get("/listarEventosHoje", eventoController.listarEventosHoje)
   .put("/evento/:id", eventoController.atualizarEventoID)
   .delete("/evento/:id", eventoController.excluirEventoID);
 
