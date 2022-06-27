@@ -5,11 +5,6 @@ import path from "path";
 import crypto from "crypto";
 const __dirname = path.resolve();
 
-/**SUBISTITUIR PARA VARIAVEL DE AMBIENTE**/
-
-const bucketName = process.env.BUCKET_NAME;
-const storage = process.env.STORAGE_TYPE;
-
 const storageTypes = {
   local: multer.diskStorage({
     destination: (req, file, cb) => {
@@ -44,7 +39,7 @@ const storageTypes = {
 
 const multerConfig = {
   dest: path.resolve(__dirname, "src", "temp", "uploads"),
-  storage: storageTypes["local"],
+  storage: storageTypes["s3"],
   limits: {
     fileSize: 2 * 1024 * 1024,
   },

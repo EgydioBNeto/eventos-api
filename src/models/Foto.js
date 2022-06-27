@@ -1,7 +1,5 @@
 import mongoose from "mongoose";
-import multer from "multer";
-import path from "path";
-const appUrl = path.resolve("src", "temp", "uploads");
+
 
 const fotoSchema = new mongoose.Schema({
   nome: { type: String, required: true },
@@ -15,12 +13,6 @@ const fotoSchema = new mongoose.Schema({
   banner: { type: Boolean, default: false },
 });
 
-fotoSchema.pre("save", function () {
-  if (!this.url) {
-    this.url = `${appUrl}/${this.foto}`;
-  }
-});
-  
 const foto = mongoose.model("fotos", fotoSchema);
 
 export default foto;
