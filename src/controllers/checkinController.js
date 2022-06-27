@@ -14,16 +14,13 @@ class checkinController {
   };
 
   static listarCheckin = (req, res) => {
-    checkin
-      .find((err, checkin) => {
-        err
-          ? res.status(400).send({
-              message: `Não foi possível listar Checkins! ${err}`,
-            })
-          : res.status(200).json(checkin);
-      })
-      .populate("usuario")
-      .populate("evento");
+    checkin.find((err, checkin) => {
+      err
+        ? res.status(400).send({
+            message: `Não foi possível listar Checkins! ${err}`,
+          })
+        : res.status(200).json(checkin);
+    });
   };
 
   static contadorCheckinEventoID = (req, res) => {

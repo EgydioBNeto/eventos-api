@@ -24,7 +24,6 @@ class fotoController {
             })
           : res.status(200).json(foto);
       })
-      .populate("evento");
   };
 
   static listarFotoID = (req, res) => {
@@ -37,7 +36,6 @@ class fotoController {
             })
           : res.status(200).json(foto);
       })
-      .populate("evento");
   };
 
   static excluirFotoID = (req, res) => {
