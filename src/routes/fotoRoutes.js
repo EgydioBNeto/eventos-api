@@ -15,7 +15,7 @@ router
   .get("/foto/:id", fotoController.listarFotoID)
   .delete("/foto/:id", fotoController.excluirFotoID)
   .post("/foto", multer(multerConfig).single("file"), async (req, res) => {
-    const { fieldname: nome, banner, foto, location: url = "" } = req.file;
+    const { originalname: nome, banner, foto, location: url = "" } = req.file;
 
     const { evento } = req.body;
 
