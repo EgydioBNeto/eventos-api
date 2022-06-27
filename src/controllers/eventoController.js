@@ -24,7 +24,6 @@ class eventoController {
             })
           : res.status(200).json(evento);
       })
-      .populate("usuario");
   };
 
   static listarEventoData = (req, res) => {
@@ -34,7 +33,6 @@ class eventoController {
           ? res.status(400).send({ message: `Não há Eventos! ${err}` })
           : res.status(200).json(evento);
       })
-      .populate("usuario");
   };
 
   static listarEventosPassados = (req, res) => {
@@ -51,7 +49,6 @@ class eventoController {
           ? res.status(400).send({ message: `Não há Eventos! ${err}` })
           : res.status(200).json(evento);
       })
-      .populate("usuario");
   };
 
   static listarEventosFuturos = (req, res) => {
@@ -68,7 +65,6 @@ class eventoController {
           ? res.status(400).send({ message: `Não há Eventos! ${err}` })
           : res.status(200).json(evento);
       })
-      .populate("usuario");
   };
 
   static listarEventosHoje = (req, res) => {
@@ -85,7 +81,6 @@ class eventoController {
           ? res.status(400).send({ message: `Não há Eventos! ${err}` })
           : res.status(200).json(evento);
       })
-      .populate("usuario");
   };
 
   static listarEventoID = (req, res) => {
@@ -98,7 +93,6 @@ class eventoController {
             })
           : res.status(200).json(evento);
       })
-      .populate("usuario");
   };
   static atualizarEventoID = (req, res) => {
     const id = req.params.id;
