@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const eventoSchema = new mongoose.Schema({
   nome: { type: String, required: true },
   data: { type: Date, required: true },
-  descriacao: { type: String, required: true },
+  descricao: { type: String, required: true },
   palavraChave: { type: String, required: true },
   categoria: { type: String, required: true },
   statusEvento: { type: Boolean, default: true },
