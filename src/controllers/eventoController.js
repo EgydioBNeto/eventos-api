@@ -73,8 +73,6 @@ class eventoController {
     if (todayMonth < 10) todayMonth = "0" + month.toString();
     let today =
       new Date().getFullYear() + "-" + todayMonth + "-" + new Date().getDate();
-
-    console.log(today);
     evento
       .find({ data: { $eq: today } }, (err, evento) => {
         err
