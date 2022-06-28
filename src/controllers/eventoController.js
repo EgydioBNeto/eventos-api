@@ -16,23 +16,32 @@ class eventoController {
   };
 
   static listarEvento = (req, res) => {
-    evento
-      .find((err, evento) => {
-        err
-          ? res.status(400).send({
-              message: `Não foi possível listar Eventos! ${err}`,
-            })
-          : res.status(200).json(evento);
-      })
+    evento.find((err, evento) => {
+      err
+        ? res.status(400).send({
+            message: `Não foi possível listar Eventos! ${err}`,
+          })
+        : res.status(200).json(evento);
+    });
   };
 
   static listarEventoData = (req, res) => {
-    evento
-      .find({ dataEvento: req.params.data }, (err, evento) => {
+    evento.find({ data: req.params.data }, (err, evento) => {
+      err
+        ? res.status(400).send({ message: `Não há Eventos! ${err}` })
+        : res.status(200).json(evento);
+    });
+  };
+
+  static listarEventoPeriodo = (req, res) => {
+    evento.find(
+      { data: { $gte: req.body.dataInicio, $lte: req.body.dataFim } },
+      (err, evento) => {
         err
           ? res.status(400).send({ message: `Não há Eventos! ${err}` })
           : res.status(200).json(evento);
-      })
+      }
+    );
   };
 
   static listarEventosPassados = (req, res) => {
@@ -45,7 +54,7 @@ class eventoController {
       err
         ? res.status(400).send({ message: `Não há Eventos! ${err}` })
         : res.status(200).json(evento);
-    });
+    }).limit(10);
   };
 
   static listarEventosFuturos = (req, res) => {
@@ -68,24 +77,22 @@ class eventoController {
     let today =
       new Date().getFullYear() + "-" + todayMonth + "-" + new Date().getDate();
 
-    evento
-      .find({ data: { $eq: today } }, (err, evento) => {
-        err
-          ? res.status(400).send({ message: `Não há Eventos! ${err}` })
-          : res.status(200).json(evento);
-      })
+    evento.find({ data: { $eq: today } }, (err, evento) => {
+      err
+        ? res.status(400).send({ message: `Não há Eventos! ${err}` })
+        : res.status(200).json(evento);
+    });
   };
 
   static listarEventoID = (req, res) => {
     const id = req.params.id;
-    evento
-      .findById(id, (err, evento) => {
-        err
-          ? res.status(400).send({
-              message: `Não foi possível listar o Evento! ${err}`,
-            })
-          : res.status(200).json(evento);
-      })
+    evento.findById(id, (err, evento) => {
+      err
+        ? res.status(400).send({
+            message: `Não foi possível listar o Evento! ${err}`,
+          })
+        : res.status(200).json(evento);
+    });
   };
   static atualizarEventoID = (req, res) => {
     const id = req.params.id;
