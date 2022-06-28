@@ -10,6 +10,8 @@ router
 
   .get("/checkin", checkinController.listarCheckin)
   .get("/checkin/:id", checkinController.contadorCheckinEventoID)
+  .get("/checkinsEventoID/:id", checkinController.listarCheckinsEventoID)
+  .get("/checkinsUsuarioID/:id", checkinController.listarCheckinsUsuarioID)
   .post("/checkin", checkinController.novoCheckin);
 
 

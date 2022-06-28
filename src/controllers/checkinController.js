@@ -23,6 +23,26 @@ class checkinController {
     });
   };
 
+  static listarCheckinsEventoID = (req, res) => {
+    checkin.find({ evento: req.params.id }, (err, checkin) => {
+      err
+        ? res.status(400).send({
+            message: `Não foi possível listar Checkins! ${err}`,
+          })
+        : res.status(200).json(checkin);
+    });
+  };
+
+  static listarCheckinsUsuarioID = (req, res) => {
+    checkin.find({ usuario: req.params.id }, (err, checkin) => {
+      err
+        ? res.status(400).send({
+            message: `Não foi possível listar Checkins! ${err}`,
+          })
+        : res.status(200).json(checkin);
+    });
+  };
+
   static contadorCheckinEventoID = (req, res) => {
     checkin.countDocuments(
       checkin.find({ evento: req.params.id }),
