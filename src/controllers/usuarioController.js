@@ -33,6 +33,14 @@ class usuarioController {
     res.send({ user, token });
   };
 
+  static validarToken = async (req, res) => {
+    const { authorization } = req.headers;
+    if (authorization) {
+      return res.status(200).send({ message: "Token válido!" });
+    }
+    return res.status(401).send({ message: "Token inválido!" });
+  };
+
   static esqueciSenha = async (req, res) => {
     const { email } = req.body;
     try {
