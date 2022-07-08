@@ -43,6 +43,24 @@ class checkinController {
     });
   };
 
+  //contar se chekin tem id de usuario e evento correspondentes ao ids passados
+
+  static checkinEfetuado = (req, res) => {
+    checkin.countDocuments(
+      {
+        usuario: { $eq: req.body.usuario },
+        evento: { $eq: req.body.evento },
+      },
+      (err, checkin) => {
+        err
+          ? res.status(400).send({
+              message: `Não foi possível contar Checkins! ${err}`,
+            })
+          : res.status(200).json(checkin);
+      }
+    );
+  };
+
   static contadorCheckinEventoID = (req, res) => {
     checkin.countDocuments(
       checkin.find({ evento: req.params.id }),
