@@ -11,6 +11,7 @@ class eventoController {
           })
         : res.status(201).json({
             message: `Evento  ${evento.nome} cadastrado com sucesso!`,
+            id: evento._id,
           });
     });
   };
