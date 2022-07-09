@@ -14,17 +14,17 @@ class eventoController {
       categoria,
       local,
       usuario,
-    });   
+    });
     eventos.save((err, evento) => {
-          err
-            ? res.status(400).send({
-                message: `Não foi possível cadastrar o Evento! ${err}`,
-              })
-            : res.status(201).json({
-                message: `Evento  ${evento.nome} cadastrado com sucesso!`,
-                id: evento._id,
-              });
-        });
+      err
+        ? res.status(400).send({
+            message: `Não foi possível cadastrar o Evento! ${err}`,
+          })
+        : res.status(201).json({
+            message: `Evento  ${evento.nome} cadastrado com sucesso!`,
+            id: evento._id,
+          });
+    });
   };
 
   static listarEvento = (req, res) => {
