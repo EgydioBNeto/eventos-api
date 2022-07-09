@@ -46,16 +46,19 @@ class eventoController {
   };
 
   static listarEventosPassados = (req, res) => {
-    let month = new Date().getMonth() + 1;
-    let todayMonth = month.toString();
-    let todayday = new Date().getDate();
-    if (todayday < 10) {
-      todayday = "0" + todayday.toString();
-    }
-    if (todayMonth < 10) todayMonth = "0" + month.toString();
-    let today =
-      new Date().getFullYear() + "-" + todayMonth + "-" + todayday;
-    evento.find({ data: { $lt: today } }, (err, evento) => {
+   let month = new Date().getMonth() + 1;
+   let todayMonth = month.toString();
+   let todayday = new Date().getDate();
+   if (todayday < 10) {
+     todayday = "0" + todayday.toString();
+   }
+   if (todayMonth < 10) todayMonth = "0" + month.toString();
+   let hour1 = "T00:00:00.000Z";
+
+   let today1 =
+     new Date().getFullYear() + "-" + todayMonth + "-" + todayday + hour1;
+
+    evento.find({ data: { $lt: today1 } }, (err, evento) => {
       err
         ? res.status(400).send({ message: `Não há Eventos! ${err}` })
         : res.status(200).json(evento);
@@ -70,8 +73,11 @@ class eventoController {
      todayday = "0" + todayday.toString();
    }
    if (todayMonth < 10) todayMonth = "0" + month.toString();
-   let today = new Date().getFullYear() + "-" + todayMonth + "-" + todayday;
-    evento.find({ data: { $gt: today } }, (err, evento) => {
+   let hour2 = "T23:59:59.999Z";
+   let today2 =
+     new Date().getFullYear() + "-" + todayMonth + "-" + todayday + hour2;
+
+    evento.find({ data: { $gt: today2 } }, (err, evento) => {
       err
         ? res.status(400).send({ message: `Não há Eventos! ${err}` })
         : res.status(200).json(evento);
@@ -86,10 +92,13 @@ class eventoController {
      todayday = "0" + todayday.toString();
    }
    if (todayMonth < 10) todayMonth = "0" + month.toString();
-   let today = new Date().getFullYear() + "-" + todayMonth + "-" + todayday;
-   console.log(today);
+   let hour1 = "T00:00:00.000Z";
+   let hour2 = "T23:59:59.999Z";
 
-    evento.find({ data: { $eq: today } }, (err, evento) => {
+   let today1 = new Date().getFullYear() + "-" + todayMonth + "-" + todayday + hour1;
+   let today2 = new Date().getFullYear() + "-" + todayMonth + "-" + todayday + hour2;
+
+    evento.find({ data: { $gte: today1, $lte: today2 } }, (err, evento) => {
       err
         ? res.status(400).send({ message: `Não há Eventos! ${err}` })
         : res.status(200).json(evento);
