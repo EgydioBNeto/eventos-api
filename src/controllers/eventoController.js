@@ -48,9 +48,13 @@ class eventoController {
   static listarEventosPassados = (req, res) => {
     let month = new Date().getMonth() + 1;
     let todayMonth = month.toString();
+    let todayday = new Date().getDate();
+    if (todayday < 10) {
+      todayday = "0" + todayday.toString();
+    }
     if (todayMonth < 10) todayMonth = "0" + month.toString();
     let today =
-      new Date().getFullYear() + "-" + todayMonth + "-" + new Date().getDate();
+      new Date().getFullYear() + "-" + todayMonth + "-" + todayday;
     evento.find({ data: { $lt: today } }, (err, evento) => {
       err
         ? res.status(400).send({ message: `Não há Eventos! ${err}` })
@@ -59,11 +63,14 @@ class eventoController {
   };
 
   static listarEventosFuturos = (req, res) => {
-    let month = new Date().getMonth() + 1;
-    let todayMonth = month.toString();
-    if (todayMonth < 10) todayMonth = "0" + month.toString();
-    let today =
-      new Date().getFullYear() + "-" + todayMonth + "-" + new Date().getDate();
+   let month = new Date().getMonth() + 1;
+   let todayMonth = month.toString();
+   let todayday = new Date().getDate();
+   if (todayday < 10) {
+     todayday = "0" + todayday.toString();
+   }
+   if (todayMonth < 10) todayMonth = "0" + month.toString();
+   let today = new Date().getFullYear() + "-" + todayMonth + "-" + todayday;
     evento.find({ data: { $gt: today } }, (err, evento) => {
       err
         ? res.status(400).send({ message: `Não há Eventos! ${err}` })
@@ -72,11 +79,15 @@ class eventoController {
   };
 
   static listarEventosHoje = (req, res) => {
-    let month = new Date().getMonth() + 1;
-    let todayMonth = month.toString();
-    if (todayMonth < 10) todayMonth = "0" + month.toString();
-    let today =
-      new Date().getFullYear() + "-" + todayMonth + "-" + new Date().getDate();
+   let month = new Date().getMonth() + 1;
+   let todayMonth = month.toString();
+   let todayday = new Date().getDate();
+   if (todayday < 10) {
+     todayday = "0" + todayday.toString();
+   }
+   if (todayMonth < 10) todayMonth = "0" + month.toString();
+   let today = new Date().getFullYear() + "-" + todayMonth + "-" + todayday;
+   console.log(today);
 
     evento.find({ data: { $eq: today } }, (err, evento) => {
       err
