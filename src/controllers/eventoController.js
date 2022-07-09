@@ -3,17 +3,28 @@ import evento from "../models/Evento.js";
 
 class eventoController {
   static novoEvento = (req, res) => {
-    let eventos = new evento(req.body);
+    const { nome, descricao, palavraChave, categoria, local, usuario } =
+      req.body;
+    const data = req.body.data + ":00.000Z";
+    let eventos = new evento({
+      nome,
+      data,
+      descricao,
+      palavraChave,
+      categoria,
+      local,
+      usuario,
+    });   
     eventos.save((err, evento) => {
-      err
-        ? res.status(400).send({
-            message: `Não foi possível cadastrar o Evento! ${err}`,
-          })
-        : res.status(201).json({
-            message: `Evento  ${evento.nome} cadastrado com sucesso!`,
-            id: evento._id,
-          });
-    });
+          err
+            ? res.status(400).send({
+                message: `Não foi possível cadastrar o Evento! ${err}`,
+              })
+            : res.status(201).json({
+                message: `Evento  ${evento.nome} cadastrado com sucesso!`,
+                id: evento._id,
+              });
+        });
   };
 
   static listarEvento = (req, res) => {
@@ -46,36 +57,38 @@ class eventoController {
   };
 
   static listarEventosPassados = (req, res) => {
-   let month = new Date().getMonth() + 1;
-   let todayMonth = month.toString();
-   let todayday = new Date().getDate();
-   if (todayday < 10) {
-     todayday = "0" + todayday.toString();
-   }
-   if (todayMonth < 10) todayMonth = "0" + month.toString();
-   let hour1 = "T00:00:00.000Z";
+    let month = new Date().getMonth() + 1;
+    let todayMonth = month.toString();
+    let todayday = new Date().getDate();
+    if (todayday < 10) {
+      todayday = "0" + todayday.toString();
+    }
+    if (todayMonth < 10) todayMonth = "0" + month.toString();
+    let hour1 = "T00:00:00.000Z";
 
-   let today1 =
-     new Date().getFullYear() + "-" + todayMonth + "-" + todayday + hour1;
+    let today1 =
+      new Date().getFullYear() + "-" + todayMonth + "-" + todayday + hour1;
 
-    evento.find({ data: { $lt: today1 } }, (err, evento) => {
-      err
-        ? res.status(400).send({ message: `Não há Eventos! ${err}` })
-        : res.status(200).json(evento);
-    }).limit(10);
+    evento
+      .find({ data: { $lt: today1 } }, (err, evento) => {
+        err
+          ? res.status(400).send({ message: `Não há Eventos! ${err}` })
+          : res.status(200).json(evento);
+      })
+      .limit(10);
   };
 
   static listarEventosFuturos = (req, res) => {
-   let month = new Date().getMonth() + 1;
-   let todayMonth = month.toString();
-   let todayday = new Date().getDate();
-   if (todayday < 10) {
-     todayday = "0" + todayday.toString();
-   }
-   if (todayMonth < 10) todayMonth = "0" + month.toString();
-   let hour2 = "T23:59:59.999Z";
-   let today2 =
-     new Date().getFullYear() + "-" + todayMonth + "-" + todayday + hour2;
+    let month = new Date().getMonth() + 1;
+    let todayMonth = month.toString();
+    let todayday = new Date().getDate();
+    if (todayday < 10) {
+      todayday = "0" + todayday.toString();
+    }
+    if (todayMonth < 10) todayMonth = "0" + month.toString();
+    let hour2 = "T23:59:59.999Z";
+    let today2 =
+      new Date().getFullYear() + "-" + todayMonth + "-" + todayday + hour2;
 
     evento.find({ data: { $gt: today2 } }, (err, evento) => {
       err
@@ -85,18 +98,20 @@ class eventoController {
   };
 
   static listarEventosHoje = (req, res) => {
-   let month = new Date().getMonth() + 1;
-   let todayMonth = month.toString();
-   let todayday = new Date().getDate();
-   if (todayday < 10) {
-     todayday = "0" + todayday.toString();
-   }
-   if (todayMonth < 10) todayMonth = "0" + month.toString();
-   let hour1 = "T00:00:00.000Z";
-   let hour2 = "T23:59:59.999Z";
+    let month = new Date().getMonth() + 1;
+    let todayMonth = month.toString();
+    let todayday = new Date().getDate();
+    if (todayday < 10) {
+      todayday = "0" + todayday.toString();
+    }
+    if (todayMonth < 10) todayMonth = "0" + month.toString();
+    let hour1 = "T00:00:00.000Z";
+    let hour2 = "T23:59:59.999Z";
 
-   let today1 = new Date().getFullYear() + "-" + todayMonth + "-" + todayday + hour1;
-   let today2 = new Date().getFullYear() + "-" + todayMonth + "-" + todayday + hour2;
+    let today1 =
+      new Date().getFullYear() + "-" + todayMonth + "-" + todayday + hour1;
+    let today2 =
+      new Date().getFullYear() + "-" + todayMonth + "-" + todayday + hour2;
 
     evento.find({ data: { $gte: today1, $lte: today2 } }, (err, evento) => {
       err
