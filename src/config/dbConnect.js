@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 /**SUBISTITUIR PARA VARIAVEL DE AMBIENTE**/
-mongoose.connect(
-  `mongodb+srv://admin:admin@eventos.kdtxx.mongodb.net/eventos?`
-);
+mongoose.connect(`mongodb://admin:admin@18.231.37.81:27017/admin`);
 
 let db = mongoose.connection;
 
