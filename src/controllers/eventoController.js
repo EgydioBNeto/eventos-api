@@ -5,7 +5,7 @@ class eventoController {
   static novoEvento = (req, res) => {
     const { nome, descricao, palavraChave, categoria, local, usuario } =
       req.body;
-    const data = req.body.data + ":00.000Z";
+    const data = new Date(req.body.data + ":00.000Z");
     let eventos = new evento({
       nome,
       data,
