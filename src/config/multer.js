@@ -46,9 +46,11 @@ const multerConfig = {
   fileFilter: (req, file, cb) => {
     const allowedMimes = [
       "image/jpeg",
+      "image/jpg",
       "image/pjpeg",
       "image/png",
       "image/gif",
+      "imagem/webp",
     ];
 
     if (allowedMimes.includes(file.mimetype)) {
