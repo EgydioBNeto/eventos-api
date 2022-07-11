@@ -19,6 +19,13 @@ usuarioSchema.pre("save", async function (next) {
   next();
 });
 
+usuarioSchema.pre("save", async function (next) {
+  if (this.email.includes("@up.edu.br")) {
+    this.docente = true;
+  }
+  next();
+});
+
 
 const usuario = mongoose.model("usuarios", usuarioSchema);
 
