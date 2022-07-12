@@ -132,16 +132,34 @@ class eventoController {
   };
   static atualizarEventoID = (req, res) => {
     const id = req.params.id;
-    evento.findByIdAndUpdate(id, { $set: req.body }, (err, evento) => {
-      err
-        ? res.status(400).send({
-            message: `Não foi possível atualizar o Evento! ${err}`,
-          })
-        : res.status(200).json({
-            message: `Evento ${evento.nome} atualizado com sucesso!`,
-          });
-    });
-  };
+    const { nome, descricao, palavraChave, categoria, local, usuario } =
+      req.body;
+    const data = new Date(req.body.data + ":00.000Z");
+    evento.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          nome,
+          data,
+          descricao,
+          palavraChave,
+          categoria,
+          local,
+          usuario,
+        },
+      },
+      (err, evento) => {
+        err
+          ? res.status(400).send({
+              message: `Não foi possível atualizar o Evento! ${err}`,
+            })
+          : res.status(200).json({
+              message: `Evento ${evento.nome} atualizado com sucesso!`,
+              id: evento._id,
+            });
+      }
+    );
+  }
 
   static excluirEventoID = (req, res) => {
     const id = req.params.id;
