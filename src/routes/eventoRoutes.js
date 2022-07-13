@@ -10,7 +10,7 @@ router
 
   .get("/evento", eventoController.listarEvento)
   .post("/evento", eventoController.novoEvento)
-  .post("/evento/listarEventoPeriodo", eventoController.listarEventoPeriodo)
+  .post("/listarEventoPeriodo", eventoController.listarEventoPeriodo)
   .get("/evento/:id", eventoController.listarEventoID)
   .get("/eventoData/:data", eventoController.listarEventoData)
   .get("/listarEventosPassados", eventoController.listarEventosPassados)
