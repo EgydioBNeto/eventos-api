@@ -75,7 +75,7 @@ class eventoController {
           ? res.status(400).send({ message: `Não há Eventos! ${err}` })
           : res.status(200).json(evento);
       })
-      .limit(10);
+      .limit(5);
   };
 
   static listarEventosFuturos = (req, res) => {
