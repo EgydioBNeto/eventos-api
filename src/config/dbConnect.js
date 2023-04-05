@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 /**SUBISTITUIR PARA VARIAVEL DE AMBIENTE**/
-mongoose.connect(`mongodb://admin:admin@18.231.37.81:27017/admin`);
+mongoose.connect(
+  `mongodb+srv://egydio:egydio@cluster0.nc6uo.mongodb.net/?retryWrites=true&w=majority`
+);
 
 let db = mongoose.connection;
 

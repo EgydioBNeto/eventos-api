@@ -1,12 +1,12 @@
 import evento from "../models/Evento.js";
-
+import user from "../models/Usuario.js";
 
 class eventoController {
   static novoEvento = (req, res) => {
     const { nome, descricao, palavraChave, categoria, local, usuario } =
       req.body;
     const data = new Date(req.body.data + ":00.000Z");
-    let eventos = new evento({
+    const eventos = new evento({
       nome,
       data,
       descricao,
@@ -15,15 +15,24 @@ class eventoController {
       local,
       usuario,
     });
-    eventos.save((err, evento) => {
-      err
-        ? res.status(400).send({
-            message: `Não foi possível cadastrar o Evento! ${err}`,
-          })
-        : res.status(201).json({
-            message: `Evento  ${evento.nome} cadastrado com sucesso!`,
-            id: evento._id,
-          });
+
+    user.findById(usuario, (_, user) => {
+      if (user == null) {
+        return res.status(400).send({
+          message: `Não foi possível encontrar o Usuário!`,
+        });
+      } else {
+        eventos.save((err, evento) => {
+          err
+            ? res.status(400).send({
+                message: `Não foi possível cadastrar o Evento! ${err}`,
+              })
+            : res.status(201).json({
+                message: `Evento  ${evento.nome} cadastrado com sucesso!`,
+                id: evento._id,
+              });
+        });
+      }
     });
   };
 
@@ -159,7 +168,7 @@ class eventoController {
             });
       }
     );
-  }
+  };
 
   static excluirEventoID = (req, res) => {
     const id = req.params.id;
