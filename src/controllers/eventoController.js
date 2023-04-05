@@ -172,14 +172,22 @@ class eventoController {
 
   static excluirEventoID = (req, res) => {
     const id = req.params.id;
-    evento.findByIdAndDelete(id, (err, evento) => {
-      err
-        ? res.status(400).send({
-            message: `Não foi possível deletar o Evento! ${err}`,
-          })
-        : res.status(200).json({
-            message: `Evento ${evento.nome} deletado com sucesso!`,
-          });
+    evento.exists({ _id: id }, (err, calres) => {
+      if (calres == null) {
+        res.status(400).send({
+          message: `Não foi possível deletar o Evento! ${err}`,
+        });
+      } else {
+        evento.findByIdAndDelete(id, (err, calldeleteres) => {
+          err
+            ? res.status(400).send({
+                message: `Não foi possível deletar o Evento! ${err}`,
+              })
+            : res.status(200).json({
+                message: `Evento ${calldeleteres.nome} deletado com sucesso!`,
+              });
+        });
+      }
     });
   };
 }
