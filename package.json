@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon index.js",
-    "start": "npm index.js"
+    "start": "node index.js"
   },
   "author": "",
   "license": "",
@@ -30,3 +30,4 @@
     "nodemon": "^2.0.16"
   }
 }
+ 
